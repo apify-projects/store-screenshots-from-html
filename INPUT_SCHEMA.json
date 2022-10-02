@@ -1,0 +1,71 @@
+{
+    "title": "PlaywrightCrawler Template",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "html": {
+            "title": "HTML Input",
+            "type": "string",
+            "description": "HTML that will be rendered",
+            "editor": "textarea",
+            "prefill": ""
+        },
+        "kvStoreId": {
+            "title": "Key-value store ID",
+            "type": "string",
+            "description": "ID of KV store with input data",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "kvStorePrefix": {
+            "title": "Key-value store prefix",
+            "type": "string",
+            "description": "If provided, only key-value pairs with given key prefix will be used",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "datasetId": {
+            "title": "Dataset ID",
+            "type": "string",
+            "description": "ID of dataset with input data",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "datasetHtmlField": {
+            "title": "Dataset HTML field",
+            "type": "string",
+            "description": "Name of field, that contains HTML of a site",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "datasetKeyField": {
+            "title": "Dataset key field",
+            "type": "string",
+            "description": "Name of field, that contains key. This key will be used as a output image name.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "imageQuality": {
+            "title": "JPEG quality",
+            "type": "integer",
+            "description": "Quality of output image. Has to be in range 1-100.",
+            "default": 80,
+            "maximum": 100,
+            "minimum": 1
+        },
+        "viewportWidth": {
+            "title": "Viewport width",
+            "type": "integer",
+            "description": "Viewport width",
+            "default": 1920,
+            "minimum": 1
+        },
+        "viewportHeight": {
+            "title": "Viewport height",
+            "type": "integer",
+            "description": "Viewport height",
+            "default": 1080,
+            "minimum": 1
+        }
+    }
+}
