@@ -38,12 +38,12 @@
             "editor": "textfield",
             "prefill": ""
         },
-        "datasetKeyField": {
-            "title": "Dataset key field",
-            "type": "string",
-            "description": "Name of field, that contains key. This key will be used as a output image name.",
-            "editor": "textfield",
-            "prefill": ""
+        "datasetKeyFields": {
+            "title": "Dataset key fields",
+            "type": "array",
+            "description": "Name of fields, that contains keys. Fields will be concatenated with '_' and used as a output image name.",
+            "editor": "stringList",
+            "prefill": [""]
         },
         "imageQuality": {
             "title": "JPEG quality",
