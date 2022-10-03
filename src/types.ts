@@ -8,9 +8,11 @@ export interface InputSchema {
     imageQuality?: number,
     viewportWidth?: number,
     viewportHeight?: number,
+    debug?: boolean,
 }
 
 export interface SiteInputDto {
     key: string,
     html: string,
+    shouldLoadNext: boolean,
 }

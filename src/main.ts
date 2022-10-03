@@ -1,23 +1,29 @@
 import { Actor } from 'apify';
-import { PlaywrightCrawler } from 'crawlee';
+import { log, LogLevel, PlaywrightCrawler } from 'crawlee';
 import { router } from './routes.js';
 import { InputSchema } from './types.js';
-import { getStartRequests, validateInput } from './tools.js';
+import { validateInput } from './tools.js';
 import configuration from './configuration.js';
+import dataLoader from './data_loader.js';
 
 await Actor.init();
 
 const input = await Actor.getInput<InputSchema>();
 
 validateInput(input);
-configuration.setInputValues(input as InputSchema);
-const startUrls = await getStartRequests(input as InputSchema);
+if ((input as InputSchema).debug) {
+    log.setLevel(LogLevel.DEBUG);
+}
 
+configuration.setInputValues(input as InputSchema);
+await dataLoader.setInputValues(input as InputSchema);
+
+const startUrls = await dataLoader.getNextBatch();
 const crawler = new PlaywrightCrawler({
     requestHandler: router,
+    maxRequestRetries: 1,
 });
 
 await crawler.run(startUrls);
 
-// Exit successfully
 await Actor.exit();
