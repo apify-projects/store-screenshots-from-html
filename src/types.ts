@@ -4,7 +4,7 @@ export interface InputSchema {
     kvStorePrefix?: string,
     datasetId?: string,
     datasetHtmlField?: string,
-    datasetKeyField?: string,
+    datasetKeyFields?: string[],
     imageQuality?: number,
     viewportWidth?: number,
     viewportHeight?: number,

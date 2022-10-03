@@ -15,7 +15,7 @@ export const validateInput = (input: InputSchema | null) => {
 };
 
 const isDatasetInputValid = (input: InputSchema) => {
-    const datasetValues = [input.datasetId, input.datasetKeyField, input.datasetHtmlField];
+    const datasetValues = [input.datasetId, input.datasetKeyFields, input.datasetHtmlField];
     const allUndefined = datasetValues.every((inputValue) => inputValue === undefined);
     const noneUndefined = datasetValues.every((inputValue) => inputValue !== undefined);
     return allUndefined || noneUndefined;

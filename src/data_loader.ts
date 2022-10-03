@@ -19,7 +19,7 @@ class DataLoader {
     private _htmlInput: string | null;
     private _dataset: Dataset | null;
     private _datasetHtmlField: string | null;
-    private _datasetKeyField: string | null;
+    private _datasetKeyFields: string[] | null;
     private _kvStore: KeyValueStore | null;
     private _kvStorePrefix: string | null;
     private _usedKeys: Set<string>;
@@ -31,7 +31,7 @@ class DataLoader {
         this._htmlInput = null;
         this._dataset = null;
         this._datasetHtmlField = null;
-        this._datasetKeyField = null;
+        this._datasetKeyFields = null;
         this._kvStore = null;
         this._kvStorePrefix = null;
         this._usedKeys = new Set<string>();
@@ -57,7 +57,7 @@ class DataLoader {
         }
 
         if (input.datasetHtmlField) this._datasetHtmlField = input.datasetHtmlField;
-        if (input.datasetKeyField) this._datasetKeyField = input.datasetKeyField;
+        if (input.datasetKeyFields) this._datasetKeyFields = input.datasetKeyFields;
 
         if (input.kvStoreId) {
             this._kvStore = await Actor.openKeyValueStore(input.kvStoreId);
@@ -164,14 +164,16 @@ class DataLoader {
 
         const filteredItems = items.filter((item) => {
             const hasHtmlField = typeof item[this._datasetHtmlField as string] === 'string';
-            const hasKeyField = typeof item[this._datasetKeyField as string] === 'string';
-            return hasHtmlField && hasKeyField;
+
+            const hasKeyFields = this._datasetKeyFields?.every((field) => item[field]);
+            return hasHtmlField && hasKeyFields;
         });
 
         return filteredItems.map((item) => {
+            const key = this._datasetKeyFields?.map((field) => item[field]).join('_') as string;
             return {
                 html: item[this._datasetHtmlField as string],
-                key: item[this._datasetKeyField as string],
+                key,
                 shouldLoadNext: false,
             };
         });
