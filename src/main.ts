@@ -15,14 +15,17 @@ if ((input as InputSchema).debug) {
     log.setLevel(LogLevel.DEBUG);
 }
 
-configuration.setInputValues(input as InputSchema);
-await dataLoader.setInputValues(input as InputSchema);
+configuration.init(input as InputSchema);
+await dataLoader.init(input as InputSchema);
 
-const startUrls = await dataLoader.getNextBatch();
 const crawler = new PlaywrightCrawler({
     requestHandler: router,
-    maxRequestRetries: 1,
 });
+
+// Do not load initial batch after migration
+const startUrls = !dataLoader.initialBatchLoaded
+    ? await dataLoader.getNextBatch()
+    : [];
 
 await crawler.run(startUrls);
 

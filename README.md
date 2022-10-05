@@ -1,22 +1,29 @@
-# PlaywrightCrawler project
+# What does Screenshot Actor do?
+This actor allows you to render and take screenshots of a saved HTML structure. You can provide the data from a dataset, key-value store or directly input the structure to actor.
 
-This template is a production ready boilerplate for developing with `PlaywrightCrawler`. Use this to bootstrap your projects using the most up-to-date code.
+# How much does it cost to use this actor?
+You can create up to 3000 screenshots for 1 USD.
 
-> We decided to split Apify SDK into two libraries, [Crawlee](https://crawlee.dev) and [Apify SDK v3](https://sdk.apify.com). Crawlee will retain all the crawling and scraping-related tools and will always strive to be the best web scraping library for its community. At the same time, Apify SDK will continue to exist, but keep only the Apify-specific features related to building actors on the Apify platform. Read the [upgrading guide](https://sdk.apify.com/docs/upgrading/upgrading-to-v3) to learn about the changes.
+# Features
+- Loading data from datasets
+    - You can set up multiple keys as a unique key
+- Loading data from Key-value stores
+    - You can filter values by key prefix
+- Loading HTML directly from input
+- Loading data in batches
+    - Actor loads data in batches, therefore this actor is usable also for large datasets
 
-If you're looking for examples or want to learn more visit:
+# Input
+- **html** - HTML structure you want to render
+- **kvStoreId** - ID of KV store, you want to load input data from
+- **kvStorePrefix** - if this option is set, only keys with given prefix will be used
+- **datasetId** - ID of dataset, you want to load input data from
+- **datasetHtmlField** - name of field, that contains HTML structure
+- **datasetKeyFields** - fields that will create an unique key for a output screenshot
+- **imageQuality** - quality of output JPEG screenshots, lowering this value can lower the size of the output
+- **viewportWidth** - width of viewport
+- **viewportHeight** - height of viewport
 
-- [Crawlee + Apify Platform guide](https://crawlee.dev/docs/guides/apify-platform)
-- [Documentation](https://crawlee.dev/api/playwright-crawler/class/PlaywrightCrawler)
-- [Examples](https://crawlee.dev/docs/examples/playwright-crawler)
+# Output
+Output screenshots are stored to the default key-value store. File name for dataset screenshots is created by concatening the key fields with '_'. File name for data from Key-value store is the same as the original key, if prefix option is set, prefix is removed from the final file name.
 
-## Documentation reference
-
-- [Crawlee](https://crawlee.dev)
-- [Apify SDK v3](https://sdk.apify.com)
-- [Apify Actor documentation](https://docs.apify.com/actor)
-- [Apify CLI](https://docs.apify.com/cli)
-
-## Writing a README
-
-See our tutorial on [writing READMEs for your actors](https://help.apify.com/en/articles/2912548-how-to-write-great-readme-for-your-actors) if you need more inspiration.

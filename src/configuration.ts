@@ -12,7 +12,7 @@ class Configuration {
         this.viewportHeight = DEFAULT_VIEWPORT_HEIGHT;
     }
 
-    setInputValues(input: InputSchema) {
+    init(input: InputSchema) {
         if (input.imageQuality) this.imageQuality = input.imageQuality;
         if (input.viewportWidth) this.viewportWidth = input.viewportWidth;
         if (input.viewportHeight) this.viewportHeight = input.viewportHeight;

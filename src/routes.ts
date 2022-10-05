@@ -7,6 +7,7 @@ import dataLoader from './data_loader.js';
 
 export const router = createPlaywrightRouter();
 
+await Actor.init();
 const store = await Actor.openKeyValueStore();
 
 router.use(async ({ page, blockRequests }) => {
@@ -25,10 +26,10 @@ router.use(async ({ page, blockRequests }) => {
 router.addDefaultHandler(async ({ log, page, request, crawler }) => {
     const { key, html, shouldLoadNext } = request.userData as SiteInputDto;
     log.info(`Handling page - ${key}`);
-    if (shouldLoadNext) {
+    if (shouldLoadNext && request.retryCount === 0) {
         log.info('Loading next batch');
         const items = await dataLoader.getNextBatch();
-        crawler.addRequests(items);
+        await crawler.addRequests(items);
     }
 
     await page.setContent(html, { waitUntil: 'load' });
