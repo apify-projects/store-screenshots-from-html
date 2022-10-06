@@ -11,7 +11,7 @@ You can create up to 3000 screenshots for 1 USD.
     - You can filter values by key prefix
 - Loading HTML directly from input
 - Loading data in batches
-    - Actor loads data in batches, therefore this actor is usable also for large datasets
+    - Actor loads data in batches, therefore this actor is usable also for large datasets without using too much memory
 
 # Input
 - **html** - HTML structure you want to render
