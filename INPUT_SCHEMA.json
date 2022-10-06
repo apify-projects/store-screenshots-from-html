@@ -4,6 +4,7 @@
     "schemaVersion": 1,
     "properties": {
         "html": {
+            "sectionCaption": "Direct input",
             "title": "HTML Input",
             "type": "string",
             "description": "HTML that will be rendered",
@@ -11,6 +12,7 @@
             "prefill": ""
         },
         "kvStoreId": {
+            "sectionCaption": "Key-value store input",
             "title": "Key-value store ID",
             "type": "string",
             "description": "ID of KV store with input data",
@@ -25,6 +27,7 @@
             "prefill": ""
         },
         "datasetId": {
+            "sectionCaption": "Dataset input",
             "title": "Dataset ID",
             "type": "string",
             "description": "ID of dataset with input data",
@@ -60,6 +63,7 @@
             "prefill": [""]
         },
         "imageQuality": {
+            "sectionCaption": "Other settings",
             "title": "JPEG quality",
             "type": "integer",
             "description": "Quality of output image. Has to be in range 1-100.",
