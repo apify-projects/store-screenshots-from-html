@@ -3,6 +3,7 @@ export interface InputSchema {
     kvStoreId?: string,
     kvStorePrefix?: string,
     datasetId?: string,
+    datasetOutput?: DatasetScreenshotsOutput,
     datasetHtmlField?: string,
     datasetKeyFields?: string[],
     imageQuality?: number,
@@ -12,7 +13,13 @@ export interface InputSchema {
 }
 
 export interface SiteInputDto {
-    key: string,
     html: string,
     shouldLoadNext: boolean,
+    key?: string,
+    item?: Record<string, unknown>
+}
+
+export enum DatasetScreenshotsOutput {
+    Dataset = 'dataset',
+    KVStore = 'kv',
 }

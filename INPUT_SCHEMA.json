@@ -31,6 +31,20 @@
             "editor": "textfield",
             "prefill": ""
         },
+        "datasetOutput": {
+            "title": "Output for dataset data",
+            "type": "string",
+            "editor": "select",
+            "description": "Select where will be data from dataset source saved",
+            "enum": [
+                "dataset",
+                "kv"
+            ],
+            "enumTitles": [
+                "Dataset",
+                "Key-Value Store"
+            ]
+        },
         "datasetHtmlField": {
             "title": "Dataset HTML field",
             "type": "string",

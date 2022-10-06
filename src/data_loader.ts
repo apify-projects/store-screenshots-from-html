@@ -1,8 +1,9 @@
 import { Actor } from 'apify';
 import { Configuration, Dataset, EventType, KeyValueStore, log, StorageClient } from 'crawlee';
-import { InputSchema, SiteInputDto } from './types.js';
+import { DatasetScreenshotsOutput, InputSchema, SiteInputDto } from './types.js';
 import { DEFAULT_BATCH_SIZE, DEFAULT_NAME, HTML_MIME } from './constants.js';
 import ScreenshotRequest from './screenshot_request.js';
+import { getUid } from './tools.js';
 
 enum InputSources {
     DirectInput,
@@ -27,6 +28,7 @@ class DataLoader {
     private _storageClient: StorageClient | null;
     private _htmlInput: string | null;
     private _dataset: Dataset | null;
+    private _loadDatasetItem: boolean;
     private _datasetHtmlField: string | null;
     private _datasetKeyFields: string[] | null;
     private _datasetItemCount: number | null;
@@ -42,6 +44,7 @@ class DataLoader {
         this._storageClient = null;
         this._htmlInput = null;
         this._dataset = null;
+        this._loadDatasetItem = false;
         this._datasetHtmlField = null;
         this._datasetKeyFields = null;
         this._datasetItemCount = null;
@@ -71,6 +74,9 @@ class DataLoader {
         if (input.datasetId) {
             this._dataset = await Actor.openDataset(input.datasetId);
             this._datasetItemCount = (await this._dataset.getInfo())?.itemCount ?? null;
+        }
+        if (input.datasetOutput === DatasetScreenshotsOutput.Dataset) {
+            this._loadDatasetItem = true;
         }
         if (input.datasetHtmlField) {
             this._datasetHtmlField = input.datasetHtmlField;
@@ -253,16 +259,28 @@ class DataLoader {
         const filteredItems = items.filter((item) => {
             const hasHtmlField = typeof item[this._datasetHtmlField as string] === 'string';
 
-            const hasKeyFields = this._datasetKeyFields?.every((field) => item[field] !== undefined);
+            // Checking key fields if set
+            const hasKeyFields = !this._datasetKeyFields || this._datasetKeyFields?.every((field) => item[field] !== undefined);
             return hasHtmlField && hasKeyFields;
         });
 
         return filteredItems.map((item) => {
-            const key = this._datasetKeyFields?.map((field) => item[field]).join('_') as string;
+            const fieldsKey = this._datasetKeyFields
+                ? this._datasetKeyFields?.map((field) => item[field]).join('_') as string
+                : undefined;
+
+            /**
+             * If key from fields is available, we use this key.
+             * Otherwise, we generate random key.
+             */
+            const key = fieldsKey ?? getUid();
+            const itemValue = this._loadDatasetItem ? item : undefined;
+
             return {
                 html: item[this._datasetHtmlField as string],
-                key,
                 shouldLoadNext: false,
+                key,
+                item: itemValue,
             };
         });
     }

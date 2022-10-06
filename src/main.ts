@@ -15,7 +15,7 @@ if ((input as InputSchema).debug) {
     log.setLevel(LogLevel.DEBUG);
 }
 
-configuration.init(input as InputSchema);
+await configuration.init(input as InputSchema, Actor.getEnv());
 await dataLoader.init(input as InputSchema);
 
 const crawler = new PlaywrightCrawler({
