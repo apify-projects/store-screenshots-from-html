@@ -34,13 +34,12 @@ router.addDefaultHandler(async ({ log, page, request, crawler }) => {
     const screenshot = await page.screenshot({ type: 'jpeg', quality: configuration.imageQuality });
 
     if (item && configuration.imageKVStore) {
-        const imageKey = `${key}.jpeg`;
-        await configuration.imageKVStore.setValue(imageKey, screenshot, { contentType: SCREENSHOT_MIME });
+        await configuration.imageKVStore.setValue(key, screenshot, { contentType: SCREENSHOT_MIME });
 
         // Runs for which we save dataset data to new dataset are allowed only on Apify platform
-        const screenshotUrl = getKVStoreKeyURL(configuration.imageKVStore.id, imageKey);
+        const screenshotUrl = getKVStoreKeyURL(configuration.imageKVStore.id, key);
 
-        log.debug(`Saving screenshot to named KV store: ${configuration.imageKVStore.name}, key: ${imageKey}, url: ${screenshotUrl}`);
+        log.debug(`Saving screenshot to named KV store: ${configuration.imageKVStore.name}, key: ${key}, url: ${screenshotUrl}`);
         await Actor.pushData({
             ...item,
             screenshotUrl,

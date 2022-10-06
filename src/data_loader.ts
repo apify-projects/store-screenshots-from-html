@@ -1,7 +1,7 @@
 import { Actor } from 'apify';
 import { Configuration, Dataset, EventType, KeyValueStore, log, StorageClient } from 'crawlee';
 import { DatasetScreenshotsOutput, InputSchema, SiteInputDto } from './types.js';
-import { DEFAULT_BATCH_SIZE, DEFAULT_NAME, HTML_MIME } from './constants.js';
+import { DEFAULT_BATCH_SIZE, DEFAULT_NAME, HTML_MIME, SCREENSHOT_EXTENSION } from './constants.js';
 import ScreenshotRequest from './screenshot_request.js';
 import { getUid } from './tools.js';
 
@@ -182,7 +182,7 @@ class DataLoader {
         if (sourceType === InputSources.DirectInput) {
             log.debug(`Loading data from direct source`);
             const item: SiteInputDto = {
-                key: DEFAULT_NAME,
+                key: `${DEFAULT_NAME}.${SCREENSHOT_EXTENSION}`,
                 html: this._htmlInput as string,
                 shouldLoadNext: false,
             };
@@ -231,7 +231,7 @@ class DataLoader {
                 const html = await this._kvStore?.getValue<string>(key) as string;
                 const keyWithoutPrefix = this._kvStorePrefix ? key.slice(this._kvStorePrefix.length) : key;
                 inputSites.push({
-                    key: keyWithoutPrefix,
+                    key: `${keyWithoutPrefix}.${SCREENSHOT_EXTENSION}`,
                     html,
                     shouldLoadNext: false,
                 });
@@ -273,7 +273,7 @@ class DataLoader {
              * If key from fields is available, we use this key.
              * Otherwise, we generate random key.
              */
-            const key = fieldsKey ?? getUid();
+            const key = `${fieldsKey ?? getUid()}.${SCREENSHOT_EXTENSION}`;
             const itemValue = this._loadDatasetItem ? item : undefined;
 
             return {

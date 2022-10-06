@@ -15,7 +15,7 @@ export interface InputSchema {
 export interface SiteInputDto {
     html: string,
     shouldLoadNext: boolean,
-    key?: string,
+    key: string,
     item?: Record<string, unknown>
 }
 
