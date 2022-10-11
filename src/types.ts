@@ -3,23 +3,17 @@ export interface InputSchema {
     kvStoreId?: string,
     kvStorePrefix?: string,
     datasetId?: string,
-    datasetOutput?: DatasetScreenshotsOutput,
     datasetHtmlField?: string,
     datasetKeyFields?: string[],
+    datasetSaveToDataset?: boolean,
     imageQuality?: number,
     viewportWidth?: number,
     viewportHeight?: number,
     debug?: boolean,
 }
 
-export interface SiteInputDto {
-    html: string,
-    shouldLoadNext: boolean,
-    key: string,
-    item?: Record<string, unknown>
-}
-
-export enum DatasetScreenshotsOutput {
-    Dataset = 'dataset',
-    KVStore = 'kv',
+export interface ScreenshotCrawlerUserData {
+    key?: string,
+    saveToDefaultDataset?: boolean,
+    directHtml?: string,
 }

@@ -8,6 +8,7 @@
 	},
 	"dependencies": {
 		"apify": "^3.0.0",
+		"apify-client": "^2.6.0",
 		"crawlee": "^3.0.0",
 		"playwright": "*"
 	},

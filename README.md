@@ -6,23 +6,17 @@ You can create up to 3000 screenshots for 1 USD.
 
 # Features
 - Loading data from datasets
-    - You can set up multiple keys as a unique key
 - Loading data from Key-value stores
-    - You can filter values by key prefix
 - Loading HTML directly from input
-- Loading data in batches
-    - Actor loads data in batches, therefore this actor is usable also for large datasets without using too much memory
 
 # Input
 - **html** - HTML structure you want to render
 - **kvStoreId** - ID of KV store, you want to load input data from
 - **kvStorePrefix** - if this option is set, only keys with given prefix will be used
 - **datasetId** - ID of dataset, you want to load input data from
-- **datasetOutput** - Screenshots for data loaded from dataset can be saved either to Key-Value store or to Dataset
-    - Dataset - Default dataset of the actor will contain copy of source dataset. Each item will have additional item screenshotUrl containing URL to made screenshot.
-    - Key-value store - Screenshots will be saved to the default dataset of the actor. You should set the datasetKeyFields option, by which the key will be created.
-- **datasetHtmlField** - name of field, that contains HTML structure
-- **datasetKeyFields** - item fields that should form a unique key for output screenshot
+- **datasetSaveToDataset** - if set to true, output will be pushed to the default dataset, with new screenshotUrl field
+- **datasetHtmlField** - name of a field, that contains HTML structure
+- **datasetKeyFields** - item fields, that will create an unique key for the output screenshot
 - **imageQuality** - quality of output JPEG screenshots, lowering this value can lower the size of the output
 - **viewportWidth** - width of viewport
 - **viewportHeight** - height of viewport

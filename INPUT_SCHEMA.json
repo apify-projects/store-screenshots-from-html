@@ -34,20 +34,6 @@
             "editor": "textfield",
             "prefill": ""
         },
-        "datasetOutput": {
-            "title": "Output for dataset data",
-            "type": "string",
-            "editor": "select",
-            "description": "Select where will be data from dataset source saved",
-            "enum": [
-                "dataset",
-                "kv"
-            ],
-            "enumTitles": [
-                "Dataset",
-                "Key-Value Store"
-            ]
-        },
         "datasetHtmlField": {
             "title": "Dataset HTML field",
             "type": "string",
@@ -56,11 +42,17 @@
             "prefill": ""
         },
         "datasetKeyFields": {
-            "title": "Dataset key fields",
+            "title": "Dataset keys field",
             "type": "array",
-            "description": "Name of fields, that contains keys. Fields will be concatenated with '_' and used as a output image name.",
+            "description": "Fields of dataset items, to create an unique key",
             "editor": "stringList",
-            "prefill": [""]
+            "prefill": []
+        },
+        "datasetSaveToDataset": {
+            "title": "Store to dataset",
+            "type": "boolean",
+            "description": "If true, actor will create new dataset with new field screenshotUrl for each item",
+            "default": true
         },
         "imageQuality": {
             "sectionCaption": "Other settings",
