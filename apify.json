@@ -1,0 +1,7 @@
+{
+	"name": "screenshots",
+	"version": "0.0",
+	"buildTag": "latest",
+	"env": null,
+	"template": "project_playwright_crawler_ts"
+}
