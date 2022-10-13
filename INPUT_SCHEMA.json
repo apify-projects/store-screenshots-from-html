@@ -42,7 +42,7 @@
             "prefill": ""
         },
         "datasetKeyFields": {
-            "title": "Dataset keys field",
+            "title": "Dataset key fields",
             "type": "array",
             "description": "Fields of dataset items, to create an unique key",
             "editor": "stringList",
